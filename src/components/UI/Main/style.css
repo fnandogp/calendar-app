@@ -1,0 +1,15 @@
+.Main {
+  background: #f1f1f1;
+}
+
+.Main--Container {
+  width: 940px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .Main--Container {
+    width: 100%;
+  }
+}

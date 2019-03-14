@@ -1,0 +1,35 @@
+.Toolbar {
+  background: silver;
+}
+
+.Toolbar--Container {
+  width: 940px;
+  padding: 15px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Toolbar--Title {
+  padding: 0;
+  margin: 0;
+}
+
+.Toolbar--Add {
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.Toolbar--Add:hover {
+  border: 2px solid black;
+  background: white;
+  color: black;
+}
+
+@media (max-width: 960px) {
+  .Toolbar--Container {
+    width: 100%;
+  }
+}

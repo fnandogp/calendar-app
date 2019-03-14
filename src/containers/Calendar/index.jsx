@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import CalendarGrid from '../components/CalendarGrid';
-import CalendarForm from '../components/CalendarForm';
+import './style.css';
+import CalendarGrid from '../../components/CalendarGrid';
+import CalendarForm from '../../components/CalendarForm';
+import Modal from '../../components/UI/Modal';
 
 import moment from 'moment';
 
@@ -45,7 +47,7 @@ const calendar = props => {
 
       return { ...appointment };
     });
-    
+
     setAppoitments(newAppointments);
   };
 
@@ -55,6 +57,10 @@ const calendar = props => {
         appointments={appointments}
       />
 
+    <Modal
+      isShown={props.isShown}
+      handleCloseModalClick={props.handleCloseModalClick}
+    >
       <CalendarForm
         descriptionInput={descriptionInput}
         handleDescriptionInputChange={handleDescriptionInputChange}
@@ -62,6 +68,7 @@ const calendar = props => {
         handleDayInputChange={handleDayInputChange}
         handleAddButtonClick={handleAddButtonClick}
       />
+    </Modal>
     </div>
   );
 }
