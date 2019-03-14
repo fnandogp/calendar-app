@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../UI/Button';
 
 const calendarForm = (props) => {
   return (
@@ -19,14 +20,13 @@ const calendarForm = (props) => {
           onChange={props.handleDescriptionInputChange}
         />
 
-        <button
-          type="button"
+        <Button
           name="add"
-          onClick={() => props.handleAddButtonClick(
+          handleClick={() => props.handleAddButtonClick(
             props.dayInput, props.descriptionInput)}
         >
           Add
-        </button>
+        </Button>
       </form>
     </div>
   );

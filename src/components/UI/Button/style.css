@@ -1,0 +1,12 @@
+.Button {
+  background: black;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.Button:hover {
+  border: 2px solid black;
+  background: white;
+  color: black;
+}

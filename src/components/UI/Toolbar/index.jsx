@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import Button from '../Button';
 
 const toolbar = (props) => {
   return (
@@ -9,14 +10,13 @@ const toolbar = (props) => {
           Calendar
         </h1>
 
-        <button
-          type="button"
+        <Button
           name="open-modal"
           className="Toolbar--Add"
-          onClick={props.handleOpenModalClick}
+          handleClick={props.handleOpenModalClick}
         >
           Add appointment
-        </button>
+        </Button>
       </div>
     </div>
   );
