@@ -1,32 +1,46 @@
 import React from 'react';
+import './style.css';
 import PropTypes from 'prop-types';
+import InputText from '../UI/InputText';
+import Button from '../UI/Button';
 
 const calendarForm = (props) => {
+  const editing = !!props.appointment;
+
   return (
     <div className="CalendarForm">
-      <form>
-        <input
-          type="text"
+      <div className="CalendarForm--Title">
+        New appointment
+      </div>
+
+      <form className="CalendarForm--Form">
+        <InputText
           name="day"
+          label="Day"
           value={props.dayInput}
-          onChange={props.handleDayInputChange}
+          handleChange={props.handleDayInputChange}
+          disabled={editing}
         />
 
-        <input
-          type="text"
+        <InputText
           name="description"
+          label="Description"
           value={props.descriptionInput}
-          onChange={props.handleDescriptionInputChange}
+          handleChange={props.handleDescriptionInputChange}
         />
 
-        <button
-          type="button"
+        <Button
           name="add"
-          onClick={() => props.handleAddButtonClick(
-            props.dayInput, props.descriptionInput)}
+          className="CalendarForm--FormAction"
+          handleClick={
+            () => props.handleButtonClick(
+              editing ? props.appointment.day : props.dayInput,
+              props.descriptionInput
+            )
+          }
         >
-          Add
-        </button>
+          {props.appointment ? 'Edit' : 'Add'}
+        </Button>
       </form>
     </div>
   );
@@ -36,8 +50,9 @@ calendarForm.propTypes = {
   dayInput: PropTypes.string.isRequired,
   handleDayInputChange: PropTypes.func.isRequired,
   descriptionInput: PropTypes.string.isRequired,
+  appointment: PropTypes.object,
   handleDescriptionInputChange: PropTypes.func.isRequired,
-  handleAddButtonClick: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
 }
 
 export default calendarForm;

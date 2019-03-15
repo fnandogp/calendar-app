@@ -1,0 +1,22 @@
+.Toolbar {
+  background: LightGray;
+}
+
+.Toolbar--Container {
+  width: 940px;
+  padding: 15px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Toolbar--Title {
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 960px) {
+  .Toolbar--Container {
+    width: 100%;
+  }
+}
