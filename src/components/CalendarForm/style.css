@@ -1,0 +1,13 @@
+.CalendarForm {}
+
+.CalendarForm--Title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.CalendarForm--Form {}
+
+.CalendarForm--FormAction {
+  padding: 5px 20px;
+}

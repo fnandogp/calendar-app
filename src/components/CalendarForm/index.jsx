@@ -1,27 +1,34 @@
 import React from 'react';
+import './style.css';
 import PropTypes from 'prop-types';
+import InputText from '../UI/InputText';
 import Button from '../UI/Button';
 
 const calendarForm = (props) => {
   return (
     <div className="CalendarForm">
-      <form>
-        <input
-          type="text"
+      <div className="CalendarForm--Title">
+        New appointment
+      </div>
+
+      <form className="CalendarForm--Form">
+        <InputText
           name="day"
+          label="Day"
           value={props.dayInput}
-          onChange={props.handleDayInputChange}
+          handleChange={props.handleDayInputChange}
         />
 
-        <input
-          type="text"
+        <InputText
           name="description"
+          label="Description"
           value={props.descriptionInput}
-          onChange={props.handleDescriptionInputChange}
+          handleChange={props.handleDescriptionInputChange}
         />
 
         <Button
           name="add"
+          className="CalendarForm--FormAction"
           handleClick={() => props.handleAddButtonClick(
             props.dayInput, props.descriptionInput)}
         >
