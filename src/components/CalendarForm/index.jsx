@@ -5,6 +5,8 @@ import InputText from '../UI/InputText';
 import Button from '../UI/Button';
 
 const calendarForm = (props) => {
+  const editing = !!props.appointment;
+
   return (
     <div className="CalendarForm">
       <div className="CalendarForm--Title">
@@ -17,6 +19,7 @@ const calendarForm = (props) => {
           label="Day"
           value={props.dayInput}
           handleChange={props.handleDayInputChange}
+          disabled={editing}
         />
 
         <InputText
@@ -29,10 +32,14 @@ const calendarForm = (props) => {
         <Button
           name="add"
           className="CalendarForm--FormAction"
-          handleClick={() => props.handleAddButtonClick(
-            props.dayInput, props.descriptionInput)}
+          handleClick={
+            () => props.handleButtonClick(
+              editing ? props.appointment.day : props.dayInput,
+              props.descriptionInput
+            )
+          }
         >
-          Add
+          {props.appointment ? 'Edit' : 'Add'}
         </Button>
       </form>
     </div>
@@ -43,8 +50,9 @@ calendarForm.propTypes = {
   dayInput: PropTypes.string.isRequired,
   handleDayInputChange: PropTypes.func.isRequired,
   descriptionInput: PropTypes.string.isRequired,
+  appointment: PropTypes.object,
   handleDescriptionInputChange: PropTypes.func.isRequired,
-  handleAddButtonClick: PropTypes.func.isRequired,
+  handleButtonClick: PropTypes.func.isRequired,
 }
 
 export default calendarForm;

@@ -21,3 +21,8 @@
 .InputText--Field:focus {
   border-color: Black;
 }
+
+.InputText--Field:disabled {
+  background: Gray;
+  cursor: not-allowed;
+}

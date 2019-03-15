@@ -15,19 +15,6 @@
   margin: 0;
 }
 
-.Toolbar--Add {
-  background: black;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease-out;
-}
-
-.Toolbar--Add:hover {
-  border: 2px solid black;
-  background: white;
-  color: black;
-}
-
 @media (max-width: 960px) {
   .Toolbar--Container {
     width: 100%;
