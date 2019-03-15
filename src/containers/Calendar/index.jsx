@@ -11,9 +11,14 @@ const calendar = props => {
   const [appointments, setAppoitments] = useState([]);
   const [descriptionInput, setDescriptionInput] = useState('');
   const [dayInput, setDayInput] = useState('');
+  const [monthName, setMonthName] = useState('');
+  const [monthOffset, setMonthOffset] = useState(0);
 
   // Initialize the appoitnments array
   useEffect(() => {
+    setMonthName(moment().format('MMMM, YYYY'));
+    setMonthOffset(moment().startOf('month').weekday());
+
     const numDay = moment().endOf('month').date();
     const initialAppointments = [];
 
@@ -54,21 +59,23 @@ const calendar = props => {
   return (
     <div className="Calendar">
       <CalendarGrid
+        monthName={monthName}
+        monthOffset={monthOffset}
         appointments={appointments}
       />
 
-    <Modal
-      isShown={props.isShown}
-      handleCloseModalClick={props.handleCloseModalClick}
-    >
-      <CalendarForm
-        descriptionInput={descriptionInput}
-        handleDescriptionInputChange={handleDescriptionInputChange}
-        dayInput={dayInput}
-        handleDayInputChange={handleDayInputChange}
-        handleAddButtonClick={handleAddButtonClick}
-      />
-    </Modal>
+      <Modal
+        isShown={props.isShown}
+        handleCloseModalClick={props.handleCloseModalClick}
+      >
+        <CalendarForm
+          descriptionInput={descriptionInput}
+          handleDescriptionInputChange={handleDescriptionInputChange}
+          dayInput={dayInput}
+          handleDayInputChange={handleDayInputChange}
+          handleAddButtonClick={handleAddButtonClick}
+        />
+      </Modal>
     </div>
   );
 }

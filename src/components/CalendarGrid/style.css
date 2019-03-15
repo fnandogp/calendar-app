@@ -1,0 +1,44 @@
+.CalendarGrid--Month {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.CalendarGrid--Grid {
+  background: Gainsboro;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-top: 1px dotted DarkGray;
+  border-left: 1px dotted DarkGray;
+}
+
+.CalendarGrid--Header {
+  background: DarkGray;
+  padding: 5px;
+  margin: -1px 0 0 -1px;
+  color: white;
+  text-align: center;
+}
+
+.CalendarGrid--Day {
+  background: white;
+  min-height: 100px;
+  position: relative;
+  padding: 3px;
+  border-bottom: 1px dotted DarkGray;
+  border-right: 1px dotted DarkGray;
+}
+
+.CalendarGrid--DayNumber {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.CalendarGrid--Appointment {
+  background: SkyBlue;
+  padding: 3px 5px;
+  border-radius: 3px;
+  border: 1px solid RoyalBlue;
+  font-size: 0.9rem;
+}
