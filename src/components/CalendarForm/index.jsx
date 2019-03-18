@@ -1,11 +1,15 @@
 import React from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
+
+import SelectInput from '../UI/SelectInput';
 import InputText from '../UI/InputText';
 import Button from '../UI/Button';
 
-const calendarForm = (props) => {
+const calendarForm = props => {
   const editing = !!props.appointment;
+
+  console.log("editing", editing)
 
   return (
     <div className="CalendarForm">
@@ -13,12 +17,18 @@ const calendarForm = (props) => {
         New appointment
       </div>
 
-      <form className="CalendarForm--Form">
-        <InputText
+      <form
+        className="CalendarForm--Form"
+        onSubmit={(event) => {
+          event.preventDefault()
+        }}
+      >
+        <SelectInput
           name="day"
           label="Day"
           value={props.dayInput}
           handleChange={props.handleDayInputChange}
+          options={props.dayOptions}
           disabled={editing}
         />
 
@@ -50,9 +60,14 @@ calendarForm.propTypes = {
   dayInput: PropTypes.string.isRequired,
   handleDayInputChange: PropTypes.func.isRequired,
   descriptionInput: PropTypes.string.isRequired,
+  dayOptions: PropTypes.array.isRequired,
   appointment: PropTypes.object,
   handleDescriptionInputChange: PropTypes.func.isRequired,
   handleButtonClick: PropTypes.func.isRequired,
+}
+
+calendarForm.defaultProps = {
+  dayOptions: []
 }
 
 export default calendarForm;

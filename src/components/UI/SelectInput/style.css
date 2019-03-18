@@ -1,0 +1,28 @@
+.SelectInput {
+  margin-bottom: 10px;
+}
+
+.SelectInput--Label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+
+.SelectInput--Field {
+  display: block;
+  width: 100%;
+  background: Gainsboro;
+  padding: 5px 10px;
+  border: 1px solid Silver;
+}
+
+.SelectInput--Field:focus {
+  border-color: Black;
+}
+
+.SelectInput--Field:disabled {
+  background: Gray;
+  cursor: not-allowed;
+}

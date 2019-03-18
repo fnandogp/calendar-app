@@ -11,8 +11,10 @@ const calendar = props => {
   // States
   const [appointments, setAppoitments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [descriptionInput, setDescriptionInput] = useState('');
+
   const [dayInput, setDayInput] = useState('');
+  const [descriptionInput, setDescriptionInput] = useState('');
+  const [dayOptions, setDayOptions] = useState([]);
 
   const [today, setToday] = useState(0);
   const [monthName, setMonthName] = useState('');
@@ -23,21 +25,33 @@ const calendar = props => {
 
   // Initialize the appoitnments array
   useEffect(() => {
-    setToday(moment().date());
+    const today = moment().date();
+    const numDay = moment().endOf('month').date();
+    const monthDays = [...Array(numDay).keys()].map(i => i + 1);
+
+    setToday(today);
     setMonthName(moment().format('MMMM, YYYY'));
     setMonthOffset(moment().startOf('month').weekday());
 
-    const numDay = moment().endOf('month').date();
-    const initialAppointments = [];
-
-    for (let i = 0; i < numDay; i++) {
-      initialAppointments.push({
-        day: (i + 1).toString(),
+    const initialAppointments = monthDays.map((day) => {
+      return {
+        day: day.toString(),
         description:'',
-      });
-    }
-
+      }
+    });
     setAppoitments(initialAppointments);
+
+    const initialDayOptions = monthDays.map((day) => {
+      return {
+        value: day.toString(),
+        disabled: day < today
+      }
+    });
+    setDayOptions([{
+      value: '',
+      disabled: false,
+    }].concat(initialDayOptions)
+    );
   }, []);
 
   useEffect(() => {
@@ -136,11 +150,12 @@ const calendar = props => {
         handleCloseModalClick={handleCloseFormModalClick}
       >
         <CalendarForm
+          dayInput={dayInput}
+          handleDayInputChange={handleDayInputChange}
+          dayOptions={dayOptions}
           descriptionInput={descriptionInput}
           handleDescriptionInputChange={handleDescriptionInputChange}
-          dayInput={dayInput}
           appointment={selectedAppointment}
-          handleDayInputChange={handleDayInputChange}
           handleButtonClick={handleButtonClick}
         />
       </Modal>
