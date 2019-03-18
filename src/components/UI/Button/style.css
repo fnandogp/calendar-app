@@ -1,0 +1,15 @@
+.Button {
+  background: black;
+  padding: 5px 10px;
+  color: white;
+  font-size: 1rem;
+  font-family: 'Inconsolata', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.Button:hover, .Button:focus {
+  border: 2px solid black;
+  background: white;
+  color: black;
+}

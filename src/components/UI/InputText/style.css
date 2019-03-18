@@ -1,0 +1,28 @@
+.InputText {
+  margin-bottom: 10px;
+}
+
+.InputText--Label {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.InputText--Field {
+  display: block;
+  width: 100%;
+  background: Gainsboro;
+  padding: 5px 10px;
+  border: 1px solid Silver;
+  color: Black;
+}
+
+.InputText--Field:focus {
+  border-color: Black;
+}
+
+.InputText--Field:disabled {
+  background: Gray;
+  cursor: not-allowed;
+}

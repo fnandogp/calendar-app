@@ -1,0 +1,10 @@
+.CalendarAppointmentView--Actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.CalendarAppointmentView--DeleteAction:hover,
+.CalendarAppointmentView--DeleteAction:focus {
+  background: salmon;
+  border-color: red;
+}
