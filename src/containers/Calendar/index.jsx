@@ -68,8 +68,6 @@ const calendar = props => {
   }
 
   const handleButtonClick = (day, description) => {
-    console.log(day, description);
-
     const newAppointments = appointments.map(appointment => {
       if(appointment.day === day){
         return {
@@ -123,6 +121,23 @@ const calendar = props => {
     setFormModalOpened(true);
   }
 
+  const handleDeleteAppointmentClick = (day) => {
+    const newAppointments = appointments.map(appointment => {
+      if(appointment.day === day){
+        return {
+          ...appointment,
+          description: ""
+        }
+      }
+
+      return { ...appointment };
+    });
+
+    setAppoitments(newAppointments);
+    setViewModalOpened(false);
+    setSelectedAppointment(null);
+  }
+
   return (
     <div className="Calendar">
       <CalendarGrid
@@ -142,6 +157,7 @@ const calendar = props => {
         <CalendarAppointmentView
           appointment={selectedAppointment}
           handleEditAppointmentOpenModalClick={handleEditAppointmentOpenModalClick}
+          handleDeleteAppointmentClick={handleDeleteAppointmentClick}
         />
       </Modal>
 

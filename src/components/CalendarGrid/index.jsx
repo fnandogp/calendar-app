@@ -67,12 +67,13 @@ const calendarGrid = props => {
               </div>
 
               {appointment.description &&
-                <div
+                <a
                   className="CalendarGrid--Appointment"
+                  href="#"
                   onClick={() => props.handleViewAppointmentOpenModalClick(appointment.day)}
                 >
                 {appointment.description}
-              </div>}
+              </a>}
             </div>
           );
         })}

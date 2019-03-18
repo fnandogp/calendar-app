@@ -9,8 +9,6 @@ import Button from '../UI/Button';
 const calendarForm = props => {
   const editing = !!props.appointment;
 
-  console.log("editing", editing)
-
   return (
     <div className="CalendarForm">
       <div className="CalendarForm--Title">

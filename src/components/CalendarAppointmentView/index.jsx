@@ -16,13 +16,25 @@ const calendarAppointmentView = props => {
         <strong>Description:</strong> {props.appointment ? props.appointment.description : ''}
       </p>
 
-      <Button
-        name="edit-appointment"
-        className="CalendarAppointmentView--Action"
-        handleClick={() => props.handleEditAppointmentOpenModalClick(props.appointment.day)}
-      >
-        Edit
-      </Button>
+      <div className="CalendarAppointmentView--Actions">
+        <Button
+          name="edit-appointment"
+          className="CalendarAppointmentView--EditAction"
+          handleClick={() => props.handleEditAppointmentOpenModalClick(props.appointment.day)}
+        >
+          Edit
+        </Button>
+
+        {' '}
+
+        <Button
+          name="delete-appointment"
+          className="CalendarAppointmentView--DeleteAction"
+          handleClick={() => props.handleDeleteAppointmentClick(props.appointment.day)}
+        >
+          Delete!
+        </Button>
+      </div>
     </div>
   );
 }
@@ -30,6 +42,7 @@ const calendarAppointmentView = props => {
 calendarAppointmentView.propTypes = {
   appointment: PropTypes.object,
   handleEditAppointmentOpenModalClick: PropTypes.func.isRequired,
+  handleDeleteAppointmentClick: PropTypes.func.isRequired,
 }
 
 export default calendarAppointmentView;
