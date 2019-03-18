@@ -43,7 +43,7 @@ const calendarForm = props => {
 
         {props.warning &&
           <p className="CalendarForm--Warning">
-            You already have an appointment this day.
+            {props.warning}
           </p>}
 
         <Button

@@ -11,3 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+button {
+  color: Black;
+}
+

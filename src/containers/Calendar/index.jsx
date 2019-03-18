@@ -15,7 +15,7 @@ const calendar = props => {
   const [dayInput, setDayInput] = useState('');
   const [descriptionInput, setDescriptionInput] = useState('');
   const [dayOptions, setDayOptions] = useState([]);
-  const [warning, setWarning] = useState(false);
+  const [warning, setWarning] = useState('');
 
   const [today, setToday] = useState(0);
   const [monthName, setMonthName] = useState('');
@@ -71,9 +71,21 @@ const calendar = props => {
   const handleFormSubmit = (event, day, description) => {
     event.preventDefault();
 
+    if(dayInput === '') {
+      setWarning('The day input is required.');
+
+      return false;
+    }
+
+    if(descriptionInput === '') {
+      setWarning('The description input is required.');
+
+      return false;
+    }
+
     if(!selectedAppointment
       && appointments[dayInput - 1].description !== '') {
-      setWarning(true);
+      setWarning('You already have an appointment this day.');
 
       return false;
     }
@@ -91,7 +103,7 @@ const calendar = props => {
 
     setDayInput('');
     setDescriptionInput('');
-    setWarning(false);
+    setWarning('');
     setAppoitments(newAppointments);
     setFormModalOpened(false);
     setSelectedAppointment(null);
@@ -109,7 +121,7 @@ const calendar = props => {
   const handleCloseFormModalClick = () => {
     setDayInput('');
     setDescriptionInput('');
-    setWarning(false);
+    setWarning('');
     setFormModalOpened(false);
   }
 
