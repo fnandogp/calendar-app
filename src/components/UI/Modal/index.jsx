@@ -10,12 +10,12 @@ const modal = (props) => {
       />
 
       <div className="Modal--Body">
-        <div
+        <button
           className="Modal--Exit"
           onClick={props.handleCloseModalClick}
         >
           ✖
-        </div>
+        </button>
 
         {props.children}
       </div>

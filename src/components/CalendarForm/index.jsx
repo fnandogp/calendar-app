@@ -17,9 +17,13 @@ const calendarForm = props => {
 
       <form
         className="CalendarForm--Form"
-        onSubmit={(event) => {
-          event.preventDefault()
-        }}
+        onSubmit={
+          (event) => props.handleFormSubmit(
+            event,
+            editing ? props.appointment.day : props.dayInput,
+            props.descriptionInput
+          )
+        }
       >
         <SelectInput
           name="day"
@@ -37,15 +41,15 @@ const calendarForm = props => {
           handleChange={props.handleDescriptionInputChange}
         />
 
+        {props.warning &&
+          <p className="CalendarForm--Warning">
+            You already have an appointment this day.
+          </p>}
+
         <Button
+          type="submit"
           name="add"
           className="CalendarForm--FormAction"
-          handleClick={
-            () => props.handleButtonClick(
-              editing ? props.appointment.day : props.dayInput,
-              props.descriptionInput
-            )
-          }
         >
           {props.appointment ? 'Edit' : 'Add'}
         </Button>
@@ -61,11 +65,13 @@ calendarForm.propTypes = {
   dayOptions: PropTypes.array.isRequired,
   appointment: PropTypes.object,
   handleDescriptionInputChange: PropTypes.func.isRequired,
-  handleButtonClick: PropTypes.func.isRequired,
+  handleFormSubmit: PropTypes.func.isRequired,
+  warning:  PropTypes.bool
 }
 
 calendarForm.defaultProps = {
-  dayOptions: []
+  dayOptions: [],
+  warning: false
 }
 
 export default calendarForm;

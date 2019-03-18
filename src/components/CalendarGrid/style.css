@@ -50,6 +50,7 @@
 }
 
 .CalendarGrid--DayNumber__today {
+  text-decoration: underline;
   font-weight: bold;
 }
 
@@ -58,7 +59,7 @@
   padding: 3px 5px;
   border-radius: 3px;
   border: 1px solid RoyalBlue;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   text-decoration: none;
   cursor: pointer;
 }

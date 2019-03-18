@@ -11,3 +11,7 @@
 .CalendarForm--FormAction {
   padding: 5px 20px;
 }
+
+.CalendarForm--Warning {
+  color: red;
+}
