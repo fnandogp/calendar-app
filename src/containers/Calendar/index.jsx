@@ -13,6 +13,8 @@ const calendar = props => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [descriptionInput, setDescriptionInput] = useState('');
   const [dayInput, setDayInput] = useState('');
+
+  const [today, setToday] = useState(0);
   const [monthName, setMonthName] = useState('');
   const [monthOffset, setMonthOffset] = useState(0);
 
@@ -21,6 +23,7 @@ const calendar = props => {
 
   // Initialize the appoitnments array
   useEffect(() => {
+    setToday(moment().date());
     setMonthName(moment().format('MMMM, YYYY'));
     setMonthOffset(moment().startOf('month').weekday());
 
@@ -109,6 +112,7 @@ const calendar = props => {
   return (
     <div className="Calendar">
       <CalendarGrid
+        today={today}
         monthName={monthName}
         monthOffset={monthOffset}
         appointments={appointments}

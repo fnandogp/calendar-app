@@ -15,14 +15,13 @@ const calendarGrid = props => {
           {props.monthName}
         </div>
 
-        <div className="CalendarGrid--FormAction">
-          <Button
-            name="add-appointment-modal"
-            handleClick={props.handleAddAppointmentOpenModalClick}
-          >
-            Add Appointment
-          </Button>
-        </div>
+        <Button
+          name="add-appointment-modal"
+          className="CalendarGrid--Action"
+          handleClick={props.handleAddAppointmentOpenModalClick}
+        >
+          Add Appointment
+        </Button>
       </div>
 
       <div className="CalendarGrid--Grid">
@@ -49,9 +48,21 @@ const calendarGrid = props => {
           return (
             <div
               key={appointment.day}
-              className="CalendarGrid--Day"
+              className={
+                "CalendarGrid--Day" +
+                  (appointment.day < props.today
+                    ? " CalendarGrid--Day__past"
+                    : "")
+
+              }
             >
-              <div className="CalendarGrid--DayNumber">
+              <div className={
+                "CalendarGrid--DayNumber" +
+                  (Number(appointment.day) === props.today
+                    ? " CalendarGrid--DayNumber__today"
+                    : "")
+                }
+              >
                 {appointment.day}
               </div>
 
@@ -71,6 +82,7 @@ const calendarGrid = props => {
 }
 
 calendarGrid.propTyps = {
+  today: PropTypes.number.isRequired,
   monthName: PropTypes.string.isRequired,
   monthOffset: PropTypes.number,
   appointment: PropTypes.array.isRequired,
