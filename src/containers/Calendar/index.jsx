@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './style.css';
-import CalendarGrid from '../../components/CalendarGrid';
-import CalendarAppointmentView from '../../components/CalendarAppointmentView';
-import CalendarForm from '../../components/CalendarForm';
-import Modal from '../../components/UI/Modal';
-
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import CalendarGrid from 'components/CalendarGrid';
+import CalendarAppointmentView from 'components/CalendarAppointmentView';
+import CalendarForm from 'components/CalendarForm';
+import Modal from 'components/UI/Modal';
 
-const calendar = props => {
+const calendar = ({ isShown }) => {
   // States
   const [appointments, setAppoitments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
@@ -26,76 +26,80 @@ const calendar = props => {
 
   // Initialize the appoitnments array
   useEffect(() => {
-    const today = moment().date();
-    const numDay = moment().endOf('month').date();
+    const todayDate = moment().date();
+    const numDay = moment()
+      .endOf('month')
+      .date();
     const monthDays = [...Array(numDay).keys()].map(i => i + 1);
 
-    setToday(today);
+    setToday(todayDate);
     setMonthName(moment().format('MMMM, YYYY'));
-    setMonthOffset(moment().startOf('month').weekday());
+    setMonthOffset(
+      moment()
+        .startOf('month')
+        .weekday()
+    );
 
-    const initialAppointments = monthDays.map((day) => {
-      return {
-        day: day.toString(),
-        description:'',
-      }
-    });
+    const initialAppointments = monthDays.map(day => ({
+      day: day.toString(),
+      description: ''
+    }));
     setAppoitments(initialAppointments);
 
-    const initialDayOptions = monthDays.map((day) => {
-      return {
-        value: day.toString(),
-        disabled: day < today
-      }
-    });
-    setDayOptions([{
-      value: '',
-      disabled: false,
-    }].concat(initialDayOptions)
+    const initialDayOptions = monthDays.map(day => ({
+      value: day.toString(),
+      disabled: day < todayDate
+    }));
+    setDayOptions(
+      [
+        {
+          value: '',
+          disabled: false
+        }
+      ].concat(initialDayOptions)
     );
   }, []);
 
   useEffect(() => {
-    setFormModalOpened(props.isShown);
-  }, [props.isShown]);
+    setFormModalOpened(isShown);
+  }, [isShown]);
 
   // Handlers
-  const handleDescriptionInputChange = (event) => {
+  const handleDescriptionInputChange = event => {
     setDescriptionInput(event.target.value);
-  }
+  };
 
-  const handleDayInputChange = (event) => {
+  const handleDayInputChange = event => {
     setDayInput(event.target.value);
-  }
+  };
 
   const handleFormSubmit = (event, day, description) => {
     event.preventDefault();
 
-    if(dayInput === '') {
+    if (dayInput === '') {
       setWarning('The day input is required.');
 
       return false;
     }
 
-    if(descriptionInput === '') {
+    if (descriptionInput === '') {
       setWarning('The description input is required.');
 
       return false;
     }
 
-    if(!selectedAppointment
-      && appointments[dayInput - 1].description !== '') {
+    if (!selectedAppointment && appointments[dayInput - 1].description !== '') {
       setWarning('You already have an appointment this day.');
 
       return false;
     }
 
     const newAppointments = appointments.map(appointment => {
-      if(appointment.day === day){
+      if (appointment.day === day) {
         return {
           ...appointment,
-          description: description
-        }
+          description
+        };
       }
 
       return { ...appointment };
@@ -107,53 +111,55 @@ const calendar = props => {
     setAppoitments(newAppointments);
     setFormModalOpened(false);
     setSelectedAppointment(null);
+
+    return true;
   };
 
-  const handleViewAppointmentOpenModalClick = (day) => {
-    const currentAppointment = appointments.find(appointment => {
-      return appointment.day === day;
-    })
+  const handleViewAppointmentOpenModalClick = day => {
+    const currentAppointment = appointments.find(
+      appointment => appointment.day === day
+    );
 
     setSelectedAppointment(currentAppointment);
     setViewModalOpened(true);
-  }
+  };
 
   const handleCloseFormModalClick = () => {
     setDayInput('');
     setDescriptionInput('');
     setWarning('');
     setFormModalOpened(false);
-  }
+  };
 
-  const handleCloseViewAppointmentClick = (day) => {
+  const handleCloseViewAppointmentClick = () => {
     setViewModalOpened(false);
     setSelectedAppointment(null);
-  }
+  };
 
   const handleAddAppointmentOpenModalClick = () => {
     setViewModalOpened(false);
     setFormModalOpened(true);
-  }
+  };
 
-  const handleEditAppointmentOpenModalClick = (day) => {
-    const selectedAppointment = appointments.find(appointment => {
-      return appointment.day === day;
-    })
+  const handleEditAppointmentOpenModalClick = day => {
+    const newSelectedAppointment = appointments.find(
+      appointment => appointment.day === day
+    );
 
-    setSelectedAppointment(selectedAppointment);
-    setDayInput(selectedAppointment.day);
-    setDescriptionInput(selectedAppointment.description)
+    setSelectedAppointment(newSelectedAppointment);
+    setDayInput(newSelectedAppointment.day);
+    setDescriptionInput(newSelectedAppointment.description);
     setViewModalOpened(false);
     setFormModalOpened(true);
-  }
+  };
 
-  const handleDeleteAppointmentClick = (day) => {
+  const handleDeleteAppointmentClick = day => {
     const newAppointments = appointments.map(appointment => {
-      if(appointment.day === day){
+      if (appointment.day === day) {
         return {
           ...appointment,
-          description: ""
-        }
+          description: ''
+        };
       }
 
       return { ...appointment };
@@ -162,7 +168,7 @@ const calendar = props => {
     setAppoitments(newAppointments);
     setViewModalOpened(false);
     setSelectedAppointment(null);
-  }
+  };
 
   return (
     <div className="Calendar">
@@ -172,8 +178,12 @@ const calendar = props => {
         monthOffset={monthOffset}
         appointments={appointments}
         handleAddAppointmentOpenModalClick={handleAddAppointmentOpenModalClick}
-        handleViewAppointmentOpenModalClick={handleViewAppointmentOpenModalClick}
-        handleEditAppointmentOpenModalClick={handleEditAppointmentOpenModalClick}
+        handleViewAppointmentOpenModalClick={
+          handleViewAppointmentOpenModalClick
+        }
+        handleEditAppointmentOpenModalClick={
+          handleEditAppointmentOpenModalClick
+        }
       />
 
       <Modal
@@ -181,8 +191,13 @@ const calendar = props => {
         handleCloseModalClick={handleCloseViewAppointmentClick}
       >
         <CalendarAppointmentView
-          appointment={selectedAppointment}
-          handleEditAppointmentOpenModalClick={handleEditAppointmentOpenModalClick}
+          appointmentDay={selectedAppointment ? selectedAppointment.day : ''}
+          appointmentDescription={
+            selectedAppointment ? selectedAppointment.description : ''
+          }
+          handleEditAppointmentOpenModalClick={
+            handleEditAppointmentOpenModalClick
+          }
           handleDeleteAppointmentClick={handleDeleteAppointmentClick}
         />
       </Modal>
@@ -204,6 +219,14 @@ const calendar = props => {
       </Modal>
     </div>
   );
-}
+};
+
+calendar.propTypes = {
+  isShown: PropTypes.bool
+};
+
+calendar.defaultProps = {
+  isShown: false
+};
 
 export default calendar;

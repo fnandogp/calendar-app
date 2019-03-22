@@ -2,40 +2,51 @@ import React from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 
-const inputText = (props) => {
+const inputText = ({
+  label,
+  type,
+  name,
+  className,
+  value,
+  handleChange,
+  disabled
+}) => {
   return (
     <div className="InputText">
-      {props.label &&
-        <label
-          className="InputText--Label"
-          htmlFor={props.name}
-        >
-          {props.label}
-        </label>}
+      {label && (
+        <label className="InputText--Label" htmlFor={name}>
+          {label}
+        </label>
+      )}
 
       <input
-        type="text"
-        name={props.name}
-        className={"InputText--Field " + props.className}
-        value={props.value}
-        onChange={props.handleChange}
-        disabled={props.disabled}
+        type={type}
+        name={name}
+        className={`InputText--Field ${className}`}
+        value={value}
+        onChange={handleChange}
+        disabled={disabled}
       />
     </div>
   );
-}
+};
 
-inputText.propsTypes = {
+inputText.propTypes = {
+  label: PropTypes.string,
   type: PropTypes.string,
+  name: PropTypes.string,
+  className: PropTypes.string,
   value: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
-  name: PropTypes.string,
-  disabled: PropTypes.bool,
-}
+  disabled: PropTypes.bool
+};
 
 inputText.defaultProps = {
+  label: '',
   type: 'text',
-  disabled: false,
-}
+  name: '',
+  className: '',
+  disabled: false
+};
 
 export default inputText;

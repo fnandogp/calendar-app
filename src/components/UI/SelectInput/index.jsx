@@ -2,25 +2,31 @@ import React from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 
-const selectInput = props => {
+const selectInput = ({
+  label,
+  name,
+  className,
+  value,
+  options,
+  handleChange,
+  disabled
+}) => {
   return (
     <div className="SelectInput">
-      {props.label &&
-        <label
-          className="SelectInput--Label"
-          htmlFor={props.name}
-        >
-          {props.label}
-        </label>}
+      {label && (
+        <label className="SelectInput--Label" htmlFor={name}>
+          {label}
+        </label>
+      )}
 
       <select
-        name={props.name}
-        className={"SelectInput--Field " + (props.className || "")}
-        value={props.value}
-        onChange={props.handleChange}
-        disabled={props.disabled}
+        name={name}
+        className={`SelectInput--Field ${className || ''}`}
+        value={value}
+        onChange={handleChange}
+        disabled={disabled}
       >
-        {props.options.map(option => {
+        {options.map(option => {
           return (
             <option
               key={option.value}
@@ -34,18 +40,29 @@ const selectInput = props => {
       </select>
     </div>
   );
-}
+};
 
 selectInput.propTypes = {
+  label: PropTypes.string,
   name: PropTypes.string,
+  className: PropTypes.string,
   value: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string,
+      disabled: PropTypes.bool
+    })
+  ),
   handleChange: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-}
+  disabled: PropTypes.bool
+};
 
 selectInput.defaultProps = {
+  label: '',
+  name: '',
+  className: '',
   options: [],
   disabled: false
-}
+};
 
 export default selectInput;

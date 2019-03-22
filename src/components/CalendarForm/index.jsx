@@ -2,76 +2,79 @@ import React from 'react';
 import './style.css';
 import PropTypes from 'prop-types';
 
-import SelectInput from '../UI/SelectInput';
-import InputText from '../UI/InputText';
-import Button from '../UI/Button';
+import SelectInput from 'components/UI/SelectInput';
+import InputText from 'components/UI/InputText';
+import Button from 'components/UI/Button';
 
-const calendarForm = props => {
-  const editing = !!props.appointment;
+const calendarForm = ({
+  dayInput,
+  handleDayInputChange,
+  dayOptions,
+  descriptionInput,
+  handleDescriptionInputChange,
+  appointment,
+  handleFormSubmit,
+  warning
+}) => {
+  const editing = !!appointment;
 
   return (
     <div className="CalendarForm">
-      <div className="CalendarForm--Title">
-        New appointment
-      </div>
+      <div className="CalendarForm--Title">New appointment</div>
 
       <form
         className="CalendarForm--Form"
-        onSubmit={
-          (event) => props.handleFormSubmit(
+        onSubmit={event =>
+          handleFormSubmit(
             event,
-            editing ? props.appointment.day : props.dayInput,
-            props.descriptionInput
+            editing ? appointment.day : dayInput,
+            descriptionInput
           )
         }
       >
         <SelectInput
           name="day"
           label="Day"
-          value={props.dayInput}
-          handleChange={props.handleDayInputChange}
-          options={props.dayOptions}
+          value={dayInput}
+          handleChange={handleDayInputChange}
+          options={dayOptions}
           disabled={editing}
         />
 
         <InputText
           name="description"
           label="Description"
-          value={props.descriptionInput}
-          handleChange={props.handleDescriptionInputChange}
+          value={descriptionInput}
+          handleChange={handleDescriptionInputChange}
         />
 
-        {props.warning &&
-          <p className="CalendarForm--Warning">
-            {props.warning}
-          </p>}
+        {warning && <p className="CalendarForm--Warning">{warning}</p>}
 
-        <Button
-          type="submit"
-          name="add"
-          className="CalendarForm--FormAction"
-        >
-          {props.appointment ? 'Edit' : 'Add'}
+        <Button type="submit" name="add" className="CalendarForm--FormAction">
+          {appointment ? 'Edit' : 'Add'}
         </Button>
       </form>
     </div>
   );
-}
+};
 
 calendarForm.propTypes = {
   dayInput: PropTypes.string.isRequired,
   handleDayInputChange: PropTypes.func.isRequired,
   descriptionInput: PropTypes.string.isRequired,
-  dayOptions: PropTypes.array.isRequired,
-  appointment: PropTypes.object,
+  dayOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  appointment: PropTypes.shape({
+    day: PropTypes.string,
+    description: PropTypes.string
+  }),
   handleDescriptionInputChange: PropTypes.func.isRequired,
   handleFormSubmit: PropTypes.func.isRequired,
-  warning:  PropTypes.bool
-}
+  warning: PropTypes.bool
+};
 
 calendarForm.defaultProps = {
-  dayOptions: [],
+  appointment: null,
   warning: false
-}
+};
 
 export default calendarForm;
